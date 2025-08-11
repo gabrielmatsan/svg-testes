@@ -522,5 +522,3 @@ const InteractiveImage: React.FC<InteractiveImageProps> = ({
     </div>
   );
 };
-
-export default SVGFromImageGuideTS;
