@@ -1,4 +1,5 @@
 import React from "react";
+import imagemSrc from "../assets/imagem.webp";
 import InteractiveImageWithSvg from "../components/InteractiveImageWithSvg";
 import { InteractivePointData } from "../components/InteractivePoint";
 import { SvgElement } from "../components/SvgOverlay";
@@ -28,7 +29,7 @@ export const SimpleLineExample = () => {
 
   return (
     <InteractiveImageWithSvg
-      src="https://via.placeholder.com/400x300"
+      src={imagemSrc}
       alt="Exemplo com linhas cruzadas"
       svgElements={svgElements}
     />
@@ -69,7 +70,7 @@ export const GeometricShapesExample = () => {
 
   return (
     <InteractiveImageWithSvg
-      src="https://via.placeholder.com/400x300"
+      src={imagemSrc}
       alt="Exemplo com formas geométricas"
       svgElements={svgElements}
     />
@@ -136,7 +137,7 @@ export const InteractiveMapExample = () => {
 
   return (
     <InteractiveImageWithSvg
-      src="https://via.placeholder.com/500x400"
+      src={imagemSrc}
       alt="Mapa interativo do Brasil"
       svgElements={connections}
       points={points}
@@ -231,7 +232,7 @@ export const FlowchartExample = () => {
 
   return (
     <InteractiveImageWithSvg
-      src="https://via.placeholder.com/600x400"
+      src={imagemSrc}
       alt="Fluxograma interativo"
       svgElements={flowElements}
       points={flowPoints}
