@@ -63,7 +63,7 @@ const Pagina1: React.FC = () => {
     },
   ];
 
-  // Pontos interativos para a primeira página
+  // Pontos interativos para a primeira página com diferentes animações
   const points: InteractivePointData[] = [
     {
       x: 25,
@@ -72,9 +72,12 @@ const Pagina1: React.FC = () => {
       color: "#3b82f6",
       size: "large",
       shape: "circle",
-      tooltip: "Ponto de início do processo",
+      tooltip: "Ponto de início do processo - Animação Pop",
       onClick: () => alert("Você está no início do processo!"),
       id: "inicio",
+      animationType: "pop",
+      animationDelay: 0.8,
+      animationDuration: 0.6,
     },
     {
       x: 75,
@@ -83,9 +86,13 @@ const Pagina1: React.FC = () => {
       color: "#10b981",
       size: "large",
       shape: "square",
-      tooltip: "Clique para ir para a segunda página",
+      tooltip: "Clique para ir para a segunda página - Animação Bounce",
       onClick: () => navigate("/pagina2"),
       id: "navegar-pagina2",
+      animationType: "bounce",
+      animationDelay: 1.0,
+      animationDuration: 0.8,
+      hoverScale: 1.4,
     },
     {
       x: 50,
@@ -94,9 +101,14 @@ const Pagina1: React.FC = () => {
       color: "#f59e0b",
       size: "medium",
       shape: "diamond",
-      tooltip: "Ponto central da primeira página",
+      tooltip: "Ponto central da primeira página - Animação Spin",
       onClick: () => alert("Você está no centro da Página 1"),
       id: "centro",
+      animationType: "spin",
+      animationDelay: 1.2,
+      animationDuration: 0.7,
+      hoverScale: 1.5,
+      tapScale: 0.8,
     },
   ];
 
@@ -125,7 +137,7 @@ const Pagina1: React.FC = () => {
           </div>
 
           {/* Navegação */}
-          <Navigation variant="blue" />
+          <Navigation variant="blue" showShowcase={true} />
 
           {/* Imagem Interativa */}
           <motion.div
