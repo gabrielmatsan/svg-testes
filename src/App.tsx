@@ -7,6 +7,7 @@ import {
   Routes,
   useLocation,
 } from "react-router-dom";
+import AnimationShowcase from "./examples/AnimationShowcase";
 import Pagina1 from "./pages/Pagina1";
 import Pagina2 from "./pages/Pagina2";
 
@@ -20,6 +21,7 @@ const AnimatedRoutes: React.FC = () => {
         <Route path="/" element={<Navigate to="/pagina1" replace />} />
         <Route path="/pagina1" element={<Pagina1 />} />
         <Route path="/pagina2" element={<Pagina2 />} />
+        <Route path="/showcase" element={<AnimationShowcase />} />
       </Routes>
     </AnimatePresence>
   );

@@ -107,7 +107,7 @@ const Pagina2: React.FC = () => {
     },
   ];
 
-  // Pontos interativos para a segunda página
+  // Pontos interativos para a segunda página com diferentes animações
   const points: InteractivePointData[] = [
     {
       x: 20,
@@ -116,9 +116,12 @@ const Pagina2: React.FC = () => {
       color: "#dc2626",
       size: "large",
       shape: "circle",
-      tooltip: "Primeira estação do processo",
+      tooltip: "Primeira estação do processo - Animação Slide",
       onClick: () => alert("Você está na Estação A!"),
       id: "estacao-a",
+      animationType: "slide",
+      animationDelay: 0.9,
+      animationDuration: 0.6,
     },
     {
       x: 80,
@@ -127,9 +130,13 @@ const Pagina2: React.FC = () => {
       color: "#3b82f6",
       size: "large",
       shape: "square",
-      tooltip: "Clique para voltar à primeira página",
+      tooltip: "Clique para voltar à primeira página - Animação Pulse",
       onClick: () => navigate("/pagina1"),
       id: "voltar-pagina1",
+      animationType: "pulse",
+      animationDelay: 1.1,
+      animationDuration: 0.8,
+      hoverScale: 1.4,
     },
     {
       x: 50,
@@ -138,9 +145,14 @@ const Pagina2: React.FC = () => {
       color: "#f59e0b",
       size: "medium",
       shape: "diamond",
-      tooltip: "Segunda estação do processo",
+      tooltip: "Segunda estação do processo - Animação Shake",
       onClick: () => alert("Você está na Estação B!"),
       id: "estacao-b",
+      animationType: "shake",
+      animationDelay: 1.3,
+      animationDuration: 0.9,
+      hoverScale: 1.6,
+      tapScale: 0.7,
     },
     {
       x: 70,
@@ -149,9 +161,13 @@ const Pagina2: React.FC = () => {
       color: "#10b981",
       size: "large",
       shape: "circle",
-      tooltip: "Finalizar processo",
+      tooltip: "Finalizar processo - Animação Bounce",
       onClick: () => alert("Processo finalizado com sucesso!"),
       id: "finalizar",
+      animationType: "bounce",
+      animationDelay: 1.5,
+      animationDuration: 1.0,
+      hoverScale: 1.3,
     },
     {
       x: 30,
@@ -160,9 +176,13 @@ const Pagina2: React.FC = () => {
       color: "#8b5cf6",
       size: "small",
       shape: "square",
-      tooltip: "Verificar status do sistema",
+      tooltip: "Verificar status do sistema - Animação Fade",
       onClick: () => alert("Sistema funcionando normalmente"),
       id: "status",
+      animationType: "fade",
+      animationDelay: 1.7,
+      animationDuration: 0.5,
+      hoverScale: 2.0, // Ponto pequeno com scale maior
     },
   ];
 
@@ -191,7 +211,7 @@ const Pagina2: React.FC = () => {
           </div>
 
           {/* Navegação */}
-          <Navigation variant="red" />
+          <Navigation variant="red" showShowcase={true} />
 
           {/* Imagem Interativa */}
           <motion.div

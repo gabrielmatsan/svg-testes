@@ -68,29 +68,46 @@ whileTap={{ scale: 0.95 }}
 - 👆 **Tap feedback** - Reduzem 5% ao clicar
 - ⚡ **Spring transition** - Animações elásticas
 
-### **4. Pontos Interativos (`InteractivePoint`)**
+### **4. Pontos Interativos (`InteractivePoint`) - ✨ NOVO SISTEMA ESCALÁVEL**
 
 ```tsx
-// Entrada dos pontos
+// 7 tipos de animação disponíveis
+animationType?: "pop" | "slide" | "fade" | "bounce" | "spin" | "shake" | "pulse"
+
+// Exemplo: Pop (padrão)
 initial={{ opacity: 0, scale: 0 }}
 animate={{ opacity: 1, scale: 1 }}
-transition={{
-  delay: Math.random() * 0.5 + 0.8, // 0.8-1.3s
-  type: "spring"
-}}
+transition={{ delay: 0.8, duration: 0.5, type: "spring" }}
 
-// Interações
-whileHover={{ scale: 1.3 }}
-whileTap={{ scale: 0.9 }}
+// Exemplo: Bounce
+initial={{ opacity: 0, scale: 0, y: -100 }}
+animate={{ opacity: 1, scale: 1, y: 0 }}
+transition={{ delay: 1.0, duration: 1.2, type: "spring", damping: 8 }}
+
+// Customizações
+hoverScale?: number        // Scale no hover (padrão: 1.3)
+tapScale?: number          // Scale no tap (padrão: 0.9)
+animationDelay?: number    // Delay customizado
+animationDuration?: number // Duração customizada
+disabled?: boolean         // Desabilita animações
 ```
 
-**Efeitos:**
+**Efeitos Disponíveis:**
 
-- 💥 **Pop in** - Aparecem crescendo do zero
-- 🎲 **Random delay** - Cada ponto tem delay único (0.8-1.3s)
-- 🔍 **Hover scale** - Crescem 30% no hover
-- 💫 **Tap shrink** - Diminuem 10% ao clicar
-- 🌟 **Shadow animation** - Sombra dinâmica no hover
+- 💥 **Pop** - Cresce do zero (padrão)
+- ↗️ **Slide** - Desliza da diagonal
+- 👻 **Fade** - Aparece gradualmente
+- 🏀 **Bounce** - Quica de cima
+- 🌀 **Spin** - Roda 180° ao aparecer
+- 🤝 **Shake** - Balança horizontalmente
+- 💓 **Pulse** - Pulsa de pequeno para grande
+
+**Características:**
+
+- 🎛️ **Controle total** - Delay, duração, hover/tap scale customizáveis
+- 🔄 **Backward compatible** - Pontos antigos funcionam normalmente
+- ⚡ **Performance otimizada** - Diferentes níveis de complexidade
+- 🎯 **Casos de uso específicos** - Cada animação tem propósito
 
 ### **5. Elementos de Conteúdo**
 

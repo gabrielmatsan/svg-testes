@@ -12,6 +12,20 @@ export interface InteractivePointData {
   tooltip?: string;
   onClick?: () => void;
   id?: string;
+  // Novas opções de animação
+  animationType?:
+    | "pop"
+    | "slide"
+    | "fade"
+    | "bounce"
+    | "spin"
+    | "shake"
+    | "pulse";
+  animationDelay?: number; // Delay customizado em segundos
+  animationDuration?: number; // Duração customizada em segundos
+  hoverScale?: number; // Scale no hover (padrão: 1.3)
+  tapScale?: number; // Scale no tap (padrão: 0.9)
+  disabled?: boolean; // Desabilitar animações
 }
 
 interface InteractivePointProps extends InteractivePointData {
@@ -29,8 +43,97 @@ const InteractivePoint: React.FC<InteractivePointProps> = ({
   tooltip,
   onClick,
   zIndex = 2,
+  animationType = "pop",
+  animationDelay,
+  animationDuration = 0.5,
+  hoverScale = 1.3,
+  tapScale = 0.9,
+  disabled = false,
 }) => {
   const [isHovered, setIsHovered] = React.useState(false);
+
+  // Gerar delay automático se não fornecido
+  const defaultDelay = animationDelay ?? Math.random() * 0.5 + 0.8;
+
+  // Variantes de animação para diferentes tipos
+  const animationVariants = {
+    pop: {
+      initial: { opacity: 0, scale: 0 },
+      animate: { opacity: 1, scale: 1 },
+      transition: {
+        delay: defaultDelay,
+        duration: animationDuration,
+        type: "spring" as const,
+        stiffness: 200,
+      },
+    },
+    slide: {
+      initial: { opacity: 0, x: -50, y: -50 },
+      animate: { opacity: 1, x: 0, y: 0 },
+      transition: {
+        delay: defaultDelay,
+        duration: animationDuration,
+        type: "spring" as const,
+        stiffness: 150,
+      },
+    },
+    fade: {
+      initial: { opacity: 0 },
+      animate: { opacity: 1 },
+      transition: {
+        delay: defaultDelay,
+        duration: animationDuration,
+        ease: "easeOut" as const,
+      },
+    },
+    bounce: {
+      initial: { opacity: 0, scale: 0, y: -100 },
+      animate: { opacity: 1, scale: 1, y: 0 },
+      transition: {
+        delay: defaultDelay,
+        duration: animationDuration * 1.5,
+        type: "spring" as const,
+        stiffness: 100,
+        damping: 8,
+      },
+    },
+    spin: {
+      initial: { opacity: 0, scale: 0, rotate: -180 },
+      animate: { opacity: 1, scale: 1, rotate: 0 },
+      transition: {
+        delay: defaultDelay,
+        duration: animationDuration,
+        type: "spring" as const,
+        stiffness: 120,
+      },
+    },
+    shake: {
+      initial: { opacity: 0, x: 0 },
+      animate: {
+        opacity: 1,
+        x: [0, -10, 10, -10, 10, 0],
+      },
+      transition: {
+        delay: defaultDelay,
+        duration: animationDuration * 1.2,
+        ease: "easeInOut" as const,
+      },
+    },
+    pulse: {
+      initial: { opacity: 0, scale: 0.5 },
+      animate: {
+        opacity: 1,
+        scale: [0.5, 1.2, 1],
+      },
+      transition: {
+        delay: defaultDelay,
+        duration: animationDuration,
+        ease: "easeOut" as const,
+      },
+    },
+  };
+
+  const selectedAnimation = animationVariants[animationType];
 
   const sizeClasses = {
     small: "w-2 h-2",
@@ -62,16 +165,12 @@ const InteractivePoint: React.FC<InteractivePointProps> = ({
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      initial={{ opacity: 0, scale: 0 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{
-        delay: Math.random() * 0.5 + 0.8, // Random delay entre 0.8-1.3s
-        duration: 0.5,
-        type: "spring",
-        stiffness: 200,
-      }}
-      whileHover={{ scale: 1.3 }}
-      whileTap={{ scale: 0.9 }}
+      // Aplicar animação escolhida ou sem animação se disabled
+      initial={disabled ? { opacity: 1, scale: 1 } : selectedAnimation.initial}
+      animate={disabled ? { opacity: 1, scale: 1 } : selectedAnimation.animate}
+      transition={disabled ? {} : selectedAnimation.transition}
+      whileHover={disabled ? {} : { scale: hoverScale }}
+      whileTap={disabled ? {} : { scale: tapScale }}
     >
       <motion.div
         className={`
@@ -85,7 +184,9 @@ const InteractivePoint: React.FC<InteractivePointProps> = ({
         }}
         onClick={handleClick}
         animate={
-          isHovered
+          disabled
+            ? {}
+            : isHovered
             ? {
                 scale: 1.1,
                 boxShadow: "0 0 20px rgba(0,0,0,0.3)",

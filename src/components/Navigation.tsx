@@ -3,25 +3,38 @@ import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 interface NavigationProps {
-  variant?: "blue" | "red";
+  variant?: "blue" | "red" | "purple";
+  showShowcase?: boolean;
 }
 
-const Navigation: React.FC<NavigationProps> = ({ variant = "blue" }) => {
+const Navigation: React.FC<NavigationProps> = ({
+  variant = "blue",
+  showShowcase = false,
+}) => {
   const navigate = useNavigate();
   const location = useLocation();
 
   const isPage1 = location.pathname === "/pagina1";
   const isPage2 = location.pathname === "/pagina2";
+  const isShowcase = location.pathname === "/showcase";
 
   const colors = {
     blue: {
       current: "bg-blue-500 text-white",
       other: "bg-gray-500 hover:bg-gray-600 text-white",
+      showcase: "bg-purple-500 hover:bg-purple-600 text-white",
       container: "bg-white",
     },
     red: {
       current: "bg-red-500 text-white",
       other: "bg-gray-500 hover:bg-gray-600 text-white",
+      showcase: "bg-purple-500 hover:bg-purple-600 text-white",
+      container: "bg-white",
+    },
+    purple: {
+      current: "bg-purple-500 text-white",
+      other: "bg-gray-500 hover:bg-gray-600 text-white",
+      showcase: "bg-purple-500 text-white",
       container: "bg-white",
     },
   };
@@ -50,7 +63,7 @@ const Navigation: React.FC<NavigationProps> = ({ variant = "blue" }) => {
           whileTap={{ scale: isPage1 ? 1 : 0.95 }}
           transition={{ type: "spring", stiffness: 400, damping: 17 }}
         >
-          {isPage1 ? "Página 1 (Atual)" : "Ir para Página 1"}
+          {isPage1 ? "Página 1 (Atual)" : "Página 1"}
         </motion.button>
         <motion.button
           onClick={() => navigate("/pagina2")}
@@ -62,8 +75,22 @@ const Navigation: React.FC<NavigationProps> = ({ variant = "blue" }) => {
           whileTap={{ scale: isPage2 ? 1 : 0.95 }}
           transition={{ type: "spring", stiffness: 400, damping: 17 }}
         >
-          {isPage2 ? "Página 2 (Atual)" : "Ir para Página 2"}
+          {isPage2 ? "Página 2 (Atual)" : "Página 2"}
         </motion.button>
+        {showShowcase && (
+          <motion.button
+            onClick={() => navigate("/showcase")}
+            className={`px-6 py-2 rounded-md font-medium transition-colors ${
+              isShowcase ? theme.showcase : theme.showcase
+            }`}
+            disabled={isShowcase}
+            whileHover={{ scale: isShowcase ? 1 : 1.05 }}
+            whileTap={{ scale: isShowcase ? 1 : 0.95 }}
+            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+          >
+            {isShowcase ? "🎭 Showcase (Atual)" : "🎭 Ver Showcase"}
+          </motion.button>
+        )}
       </motion.div>
     </motion.div>
   );
